@@ -1,7 +1,15 @@
-var res = [80,50];
-var canvasSize = 1000;
+
+// Conway's Game of Life
+
+var res = [50,50];
+var canvasSize = 600;
 var cellSize = canvasSize/res[0];
 var activeMatrix = 1;
+
+void setup() {
+	size(canvasSize,canvasSize);
+	console.log(width);
+}
 
 // Defines a cell
 var cell = function(x, y, size) {
@@ -22,15 +30,21 @@ for(var i = 0; i < res[0]; i++){
 
 
 // relocate this smwhere else
-var mouseClicked = function(){
+void mouseClicked(){
     var x = floor(mouseX / cellSize);
     var y = floor(mouseY / cellSize);
     
-    if (matrix1[x][y] === 0) {matrix1[x][y] = 1;} 
-    else if(matrix1[x][y] === 1) {matrix1[x][y] = 0;}
+    if (activeMatrix == 1) {
+    	if (matrix1[x][y] === 0) {matrix1[x][y] = 1;} 
+    	else if(matrix1[x][y] === 1) {matrix1[x][y] = 0;}	
+    }
+    if (activeMatrix == 2) {
+    	if (matrix2[x][y] === 0) {matrix2[x][y] = 1;} 
+    	else if(matrix2[x][y] === 1) {matrix2[x][y] = 0;}	
+    }
 };
 
-var analyseNeighbours = function(x,y) {
+int analyseNeighbours(x,y) {
     var aliveNeighbours = 0;
     
     if (activeMatrix === 1) {
@@ -72,7 +86,7 @@ var analyseNeighbours = function(x,y) {
     }
 };
 
-var gameLogic = function() {
+void gameLogic() {
     
     for(var i = 1; i < res[0]-1; i++ ) {
         for(var j = 1; j < res[1]-1; j++ ) {
@@ -95,7 +109,7 @@ var gameLogic = function() {
 };
 
 
-var drawGrid = function(){
+void drawGrid(){
     stroke(117, 117, 117);
     //noStroke();
     
@@ -131,13 +145,5 @@ keyTyped = function() {
 };
 
 draw = function() {
-    //background(255, 255, 255);
     drawGrid();
-    
-    
-    //var m = millis();
-
-    //if ( keyPressed() ) {
-    //    gameLogic();
-    //}
 };
